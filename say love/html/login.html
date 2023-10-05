@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Say your love!!</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <div class="banner">
+        <h2> 欢迎来到表白墙 请说出你的爱！</h2>
+        <P>人间烟火，山河辽阔，无一是你，无一不是你</P>
+        <p>所有的晦暗都留给过往，从遇见你开始，凛冬散尽，星河长明</p>
+        <br><br><br><br>
+        <h3>请登录</h3>
+        <form action="">
+            <label for="phone_num" class="form-label">账号：</label>
+            <input type="text" class="form-control phone_num" placeholder="请输入电话号码">
+            <br><br>
+            <label for="password" class="form-label">密码：</label>
+            <input type="password" class="form-control password" placeholder="请输入密码">
+            <br><br>
+            <a href="./register.html">新用户请注册</a>
+            <button type="button" class="btn btn-primary btn-login"><a href="#">登录该账号</a></button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.querySelector('.btn-login').addEventListener('click',
+        ()=>{
+            const phone_num=document.querySelector('.phone_num').value
+            const password=document.querySelector('.password').value
+            // console.log(phone_num,password)
+            axios({
+                url:'http://127.0.0.1/api/login',
+                method:'post',
+                data:{
+                    phone_num,
+                    password
+                }
+            }).then(result=>{
+                console.log(result)
+                console.log(result.data.message)
+                alert(result.data.message)
+            }).catch(error=>{
+                console.log(error)
+                console.log(error.response.data.message)
+                alert(error.response.data.message)
+            })
+        })
+    </script>
+</body>
+</html>

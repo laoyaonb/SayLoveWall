@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表白墙首页</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1><a href="#">精弘表白墙</a></h1>
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="" class="active">表白墙</a></li>
+                <li><a href="">我的表白</a></li>
+            </ul>
+        </div>
+        <div class="user">
+            <a href="#">
+                <img src="../images/屏幕截图 2023-10-03 111210.png">
+                <span class="my-name">姓名</span>
+                <a href="#">退出登录</a>
+            </a>
+        </div>
+    </div>
+    <div class="wall">
+        <button type="button" class="btn btn-primary edit-btn">
+            我要表白
+        </button>
+        <br><br>
+        <h5>表白朋友圈 :</h5>
+        <br><br>
+        <p class="my-p"></p>
+    </div>
+    <div class="modal name-box" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">请输入你的表白</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="">
+                <textarea></textarea>
+                <label for="privacy" class="form-label">是否匿名</label>
+                <input type="text" class="privacy" placeholder="请输入是或否">
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const modalDom=document.querySelector('.name-box')
+        const modal=new bootstrap.Modal(modalDom)
+        document.querySelector('.edit-btn').addEventListener
+        ('click',()=>{
+            modal.show()
+        })
+        document.querySelector('.save-btn').addEventListener
+        ('click',()=>{
+            const content=document.querySelector('.content').value
+            const privacy=document.querySelector('.privacy').value
+            axios({
+                url:'http://127.0.0.1/api/mylove',
+                method:'post',
+                data:{
+                    content,
+                    privacy
+                }
+            }).then(result=>{
+                console.log(result)
+                console.log(result.data.message)
+                alert(result.data.message)
+            }).catch(error=>{
+                console.log(error)
+                console.log(error.response.data.message)
+                alert(error.response.data.message)
+            })
+            modal.hide()
+        })
+        axios({
+            url:'http://127.0.0.1/api/mylove',
+        }).then(result=>{
+            console.log(result)
+            console.log(result.data.message)
+            console.loh(result.data.list.join('<br><br>'))
+            document.querySelector('.my-p').innerHTML=result.data.list.join('<br><br>')
+        }).catch(error=>{
+            console.log(error)
+            console.log(error.response.data.message)
+        })
+    </script>
+</body>

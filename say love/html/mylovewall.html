@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的表白墙</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/mylovewall.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1><a href="#">精弘表白墙</a></h1>
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="" class="active">表白墙</a></li>
+                <li><a href="">我的表白</a></li>
+            </ul>
+        </div>
+        <div class="user">
+            <a href="#">
+                <img src="../images/屏幕截图 2023-10-03 111210.png">
+                <span class="my-name">姓名</span>
+                <a href="#">退出登录</a>
+            </a>
+        </div>
+    </div>
+    <div class="wall">
+        <br>
+        <h2>我的表白 :</h2>
+        <p class="my-p"></p>
+        <br><br>
+    </div>
+    <script>
+        axios({
+            url:'http://127.0.0.1/api/mylove',
+        }).then(result=>{
+            console.log(result)
+            console.log(result.data.message)
+            console.loh(result.data.list.join('<br><br>'))
+            document.querySelector('.my-p').innerHTML=result.data.list.join('<br><br>')
+        }).catch(error=>{
+            console.log(error)
+            console.log(error.response.data.message)
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Say your love!!(register)</title>
+    <link rel="stylesheet" href="../css/register.css">
+</head>
+<body>
+    <div class="banner">
+        <h1>注册信息</h1>
+        <form action="">
+            <label for="phone_num" class="form-label">手机号：</label>
+            <input type="text" class="form-control phone_num" placeholder="请输入电话号码">
+            <br><br>
+            <label for="name" class="form-label">姓名：</label>
+            <input type="text" class="form-control name" placeholder="请输入姓名">
+            <br><br>
+            <label for="password" class="form-label">密码：</label>
+            <input type="password" class="form-control password" placeholder="请输入密码">
+            <br><br>
+            <label for="confirm_password" class="form-label">请确认密码：</label>
+            <input type="password" class="form-control confirm_password" placeholder="请输入密码">
+            <br><br>
+            <label for="gender" class="form-label">性别：</label>
+            <input type="radio" class="form-control gender" name="gender" checked>男
+            <input type="radio" class="form-control gender" name="gender">女
+            <br><br>
+            <input type="checkbox" class="form-control agree"><label>已阅读并同意以下协议</label>
+            <ul>
+                <li><a href="#">《用户服务协议》</a></li>
+            </ul>
+            <button class="btn btn-primary btn-register"><a href="./login.html">确认注册</a></button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.querySelector('.btn-register').addEventListener('click',
+        ()=>{
+            const phone_num=document.querySelector('.phone_num').value
+            const password=document.querySelector('.password').value
+            const confirm_password=document.querySelector('.confirm_password').value
+            const name=document.querySelector('.name').value
+            const gender=document.querySelector('.gender').value
+            // console.log(phone_num,password)
+            axios({
+                url:'127.0.0.1/api/login',
+                method:'post',
+                data:{
+                    phone_num,
+                    name,
+                    password,
+                    confirm_password,
+                    gender,
+                    agree
+                }
+            }).then(result=>{
+                console.log(result)
+                console.log(result.data.message)
+                alert(result.data.message)
+            }).catch(error=>{
+                console.log(error)
+                console.log(error.response.data.message)
+                alert(error.response.data.message)
+            })
+        })
+    </script>
+</body>
+</html>
