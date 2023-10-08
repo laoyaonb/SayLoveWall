@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Say your love!!(release)</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="release.css">
+</head>
+<body>
+    <h2>告白</h2>
+    <div class="a">
+        <div class="b1"></div>
+        <div class="b2">
+            <div id="myDIV" class="header">
+                <h2 >管理</h2>
+                <h2></h2>
+                <input type="text" id="myInput" placeholder="请输入您的告白">
+                <span onclick="newElement()" class="addBtn">新增</span>
+            </div>
+            <div class="shell"> 
+                <ul id="myUL">
+                <li class="checked">to XXX:I love you</li>
+            </div>
+            
+            </ul>
+        </div>
+    </div>
+<script>
+myInput.addEventListener('keyup',function(e){
+    if(e.key=='Enter') {
+        newElement();
+    }
+})
+//1.单击关闭按钮隐藏当前列表项
+var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0 ; i < myNodelist.length ; i++){
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("x");
+    span.className = "close";
+    span.appendChild(txt);
+    myNodelist[i].appendChild(span);
+}
+var close = document.getElementsByClassName("close");
+var i;
+for(i = 0;i<close.length; i++){
+    close[i].onclick = function(){
+        var r =confirm('确认删除该告白吗?')
+        if(r == true){
+            var div = this.parentElement;
+            div.style.display = "none";
+        }
+    }
+}
+//2.单击列表项内容时添加“选中”效果
+var list = document.querySelector('ul');
+list.addEventListener('click',function(ev){
+    if(ev.target.tagName === 'LI'){
+        var pd=prompt("输入是-实名发布，否-匿名发布，取消则不发布")
+        if(pd=="是")
+        {
+
+        }
+        if(pd=="否")
+        {
+
+        }
+        ev.target.classList.toggle('checked');
+    }
+},false);
+//3.单击“添加”按钮时创建一个新的列表项
+function newElement(){
+    var li = document.createElement("li");
+    var inputValue = document.getElementById("myInput").value;
+    var t=document.createTextNode(inputValue);
+    li.appendChild(t);
+    if(inputValue === ""){
+        alert("输入框内容不能为空！")
+    }else{
+        document.getElementById("myUL").appendChild(li);
+    }
+    document.getElementById('myInput').value ="";
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("×");
+    span.className = "close";
+    span.appendChild(txt);
+    li.appendChild(span);
+    for(i = 0 ; i<close.length ; i ++){
+        close[i].onclick =function(){
+            var r =confirm('确认删除该事项吗?')
+            if(r == true){
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+    }
+}
+function release(){
+    var i;
+    var lis=document.getElementsByTagName("LI");
+}
+</script>
+</body>
+</html>

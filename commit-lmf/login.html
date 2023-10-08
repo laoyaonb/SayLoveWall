@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Say your love!!</title>
+    <link rel="stylesheet" href="login.css">
+    <script type="text/javascript" src="axios.min.js"></script>
+</head>
+<body>
+    <div class="banner">
+        <h2> 欢迎来到表白墙 请说出你的爱！</h2>
+        <br><br><br><br><br><br><br>
+        <p>人间烟火，山河辽阔，无一是你，无一不是你</p>
+        <p>所有的晦暗都留给过往，从遇见你开始，凛冬散尽，星河长明</p>
+        <br><br><br><br>
+    </div>
+    <div class="a">
+        <div class="b">
+            <div class="c">
+                <div class="d">
+                    <h1>登录/注册</h1>
+                <form action="js" class="form"></form>
+                    <input id="phone_num" type="text" class="e_phone_num" placeholder="输入电话号码">
+                    <input id="username" type="text" class="e_username" placeholder="昵称">
+                    <input id="password" type="password" class="e" placeholder="密码">
+                    <a href="#" class="f">忘记密码?</a>
+                    <a href="#" class="g">登录</a>
+                    <a class="h" href="./register.html">注册</a>
+                </form>
+                    <!--
+                    <label>账号：</label><input type="text" placeholder="请输入电话号码">
+                    <br><br>
+                    <label>密码：</label><input type="password" placeholder="请输入密码">
+                    <br><br>*/
+                    <a href="./register.html">新用户请注册</a>
+                    <button><a href="#">登录该账号</a></button>-->
+                </div>
+            </div>
+        </div>
+    </div>       
+
+<script>"https://unpkg.com/axios/dist/axios.min.js"</script>
+<script type="text/javascript" src="form-serialize.js"></script>
+<script>
+    document.querySelector('.g').addEventListener('click',
+    ()=>{
+        const username=document.querySelector('.e_username').value
+        const password=document.querySelector('.e').value
+        const phone_num=document.querySelector('.e_phone_num').value
+        //console.log(username,password)
+        if(username.length<3){
+            console.log('用户名必须大于等于3位')
+            alert("用户名必须大于等于3位")
+            return
+        }
+        if(password.length<6){
+            console.log('密码必须大于等于6位')
+            alert("密码必须大于等于6位")
+            return
+        }
+        if(phone_num.length!==11){
+            console.log('电话号码必须为十一位')
+            alert("电话号码必须为十一位")
+            return
+        }
+        axios({
+            url:'http://47.96.100.92:8080/api/login',
+            method:'post',
+            data:{
+                username:username,
+                password:password,
+                phone_num:phone_num
+            }
+        }).then(result=>{
+            console.log(result)
+            console.log(result.data.message)
+            alert("登录成功")
+            window.location.replace("")//跳转到information页面
+
+        }).catch(Error=>{
+            console.log(Error)
+            console.log(error.response.data.message)
+            alert("登录失败")
+        })
+    })
+</script>
+</body>
+</html>
+

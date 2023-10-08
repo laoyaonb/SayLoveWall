@@ -1,0 +1,125 @@
+body
+    {
+        background-image: linear-gradient(to left,#9c88ff,#51b3e8);
+            display: flex;
+            justify-self: center;
+    }
+    .a{
+        position:relative;
+        top: 150px;
+        width: 3000px;
+        height: 550px;
+        box-shadow: 0 5px 15px rgba(0,0,0,.8);
+        display: flex;
+        justify-content:space-between;
+}
+.b1{
+    width: 650px;
+    height: 550px;
+    background-color: white;
+    display:flex;
+    justify-content:left;
+    align-items:center;
+}
+.b2{
+    width: 650px;
+    height: 550px;
+    background-color: white;
+}
+/* 在元素的总宽度和高度中包括填充和边框 */
+*{
+    box-sizing: border-box;
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+ul li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    background: #eee;
+    font-size: 18px;
+    /* 使列表项不可选择 */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+ul li:nth-child(odd) {
+    background: #f9f9f9;
+}
+ul li:hover {
+    background: #ddd;
+}
+ul li.checked {
+    background: #888;
+    color: #fff;
+    text-decoration:underline;
+
+}
+/* “选中”标记 */
+ul li.checked::before {
+    content: '';
+    position: absolute;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+}
+.close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 12px 16px 12px 16px;
+}
+.close:hover {
+    background-color: #3652f4;
+    color: white;
+}
+.header {
+    background-color: #3652f4;
+    padding: 30px 40px;
+    color: white;
+    text-align: center;
+}
+/* 清除标题后的浮动 */
+.header:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+input {
+    border: none;
+    width: 75%;
+    padding: 10px;
+    float: left;
+    font-size: 16px;
+}
+.addBtn {
+    padding: 8.5px;
+    width: 25%;
+    background: #d9d9d9;
+    color: #555;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer; 
+}
+.addBtn:hover {
+    background-color: #bbb;
+}
+.shell{
+    background-color: rgb(185, 230, 235);
+    padding: 10px;
+    height: 380px;
+    width: 650px;
+    overflow-y: scroll;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+}

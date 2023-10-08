@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link herf="http://cdn.jsdeliver.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="information.css">
+    <title>Say your love!!(Information)</title>
+</head>
+<body>
+    <!--<div class="toast my-toast" data-bs-delay="1500">
+        <div class="toast-body">
+            <div class="alert alert-successs info-box">
+                操作成功
+            </div>
+        </div>
+    </div>-->
+    <div id="sidebar" onclick="togglebar()">
+        <div class="toggle-btn">
+            <span></span>
+            <span></span>
+        </div>
+        <ul>
+            <a href="release.html" class="button active" >release </a>
+            <br>
+            <a href="information.html" class="button active">information</a>
+        </ul>
+    </div>
+    <div class="shell">
+        <div class="box-left">
+            <h2>Information</h2>
+            <span>Complete your Information, you can enjoy more services and express your love</span>
+        </div>
+        <div class="box-right">
+            <div class="form">
+                <label for="phonenumber">电话号码</label>
+                <input type="text" id="phone_num" name="phone_num">
+                <label for="username">昵称</label>
+                <input type="text" id="username"name="username">
+                <label for="password">密码</label>
+                <input type="password" id="password" name="password">
+                <p>性别：</p>
+                <input type="radio" name="gender" >男
+                <input  type="radio" name="gender">女
+                <label for="email">邮箱</label>
+                <input type="email" id="email" name="email">
+                <label for="hobby">兴趣爱好</label>
+                <input type="text" id=hobby name="hobby">
+                <input type="submit" id="submit" value="Submit">
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function togglebar()
+{
+    document.getElementById('sidebar').classList.toggle('active');
+}
+</script>
+</html>
