@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表白墙首页</title>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1><a href="#">精弘表白墙</a></h1>
+        </div>
+        <div class="tab-nav">
+            <ul>
+                <li><a href="javascript:;"  class="active" data-id="0">表白墙</a></li>
+                <li><a href="javascript:;"  data-id="1">我的表白</a></li>
+            </ul>
+        </div>
+        <div class="user">
+            <a href="#">
+                <img src="../images/屏幕截图 2023-10-03 111210.png">
+                <a href="./login.html" class="my-name">请先登录</a>
+                <a href="./register.html" class="out">免费注册</a>
+            </a>
+        </div>
+    </div>
+    <div class="wall">
+        <div>表白墙</div>
+        <form action="">
+            <div class="shell">
+                <ul id="myUL"><button class="edit">修改</button><button class="del">删除</button></ul>
+            </div>
+        </form>
+        <!-- <button type="button" class="btn btn-primary edit-btn">
+            我要表白
+        </button> -->
+        <!-- <br><br>
+        <h5>表白朋友圈 :</h5>
+        <br><br>
+        <p class="my-p"></p> -->
+    </div>
+    <div class="wall" style="display: none;">
+        <div class="content">
+        <!-- 发布文章 -->
+            <div class="card">
+                <div class="title">
+                    <span>发布表白</span>
+                </div>
+                <div class="body">
+                    <form class="art-form">
+                        <!-- <input type="text" name="id" hidden> -->
+                        <div>
+                            <label for="title" class="form-label">告白人：</label>
+                            <input type="text" class="form-control" id="title" name="title">
+                        </div>
+              <!-- <div>
+                <label for="channel_id" class="form-label">频道：</label>
+                <select class="form-select" id="channel_id" name="channel_id">
+                  <option value="" selected>请选择文章频道</option>
+                  <option value="1">频道1</option>
+                  <option value="2">频道2</option>
+                  <option value="3">频道3</option>
+                </select>
+              </div> -->
+              <!-- <div class="cover">
+                <label for="img">封面：</label>
+                <label for="img" class="place">+</label>
+                <input class="img-file" type="file" name="img" id="img" hidden>
+                <img class="rounded">
+              </div> -->
+                        <div>
+                            <label for="">内容：</label>
+                            <br><br>
+                            <textarea name="content" class="publish-content"></textarea>
+                            <br>
+                            <label for="">是否匿名：(0否1是)</label>
+                            <input type="text" class="unname">
+                <!-- 富文本编辑器位置
+                <div id="editor—wrapper">
+                  <div id="toolbar-container">工具栏</div>
+                  <div id="editor-container">编辑器</div>
+                </div>
+                记录富文本内容-用于表单收集
+                <textarea name="content" class="publish-content" hidden></textarea>
+              <!-- < -->
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary send">发布</button>
+                            <button type="reset">重置</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <p class="mywall-show"></p>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="modal name-box" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">请输入你的表白</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="">
+                <textarea></textarea>
+                <label for="privacy" class="form-label">是否匿名</label>
+                <input type="text" class="privacy" placeholder="请输入是或否">
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+    </div> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const tab_nav = document.querySelector('.tab-nav')
+        const wall = document.querySelectorAll('.wall')
+        tab_nav.addEventListener('click', function (e) {
+            if (e.target.tagName === 'A') {
+        // 取消上一个active
+                tab_nav.querySelector('.active').classList.remove('active')
+        // 当前元素添加active
+                e.target.classList.add('active')
+
+        // 先干掉所有人  for循环
+                for (let i = 0; i < wall.length; i++) {
+                    wall[i].style.display = 'none'
+                }
+        // 让对应序号的 大pane 显示 
+                wall[e.target.dataset.id].style.display = 'block'
+            }
+        })
+
+        document.querySelector('.send').addEventListener('click',
+        ()=>{
+            const text=document.querySelector('.publish-content').value
+            const name=document.querySelector('.form-control').value
+            const unname=document.querySelector('.unname').value
+            // const privacy=document.querySelector('').value
+            console.log(text)
+            axios({
+                url:'http://47.96.100.92:8080/api/publish',
+                method:'post',
+                data:{
+                    name,
+                    text,
+                    unname
+                    // privacy
+                }
+            }).then(result=>{
+                console.log(result)
+                alert('发布成功')
+            }).catch(error=>{
+                alert('发布失败')
+            })
+        })
+
+        // const modalDom=document.querySelector('.name-box')
+        // const modal=new bootstrap.Modal(modalDom)
+        // document.querySelector('.edit-btn').addEventListener
+        // ('click',()=>{
+        //     modal.show()
+        // })
+        // document.querySelector('.save-btn').addEventListener
+        // ('click',()=>{
+        //     const content=document.querySelector('.content').value
+        //     const privacy=document.querySelector('.privacy').value
+        //     axios({
+        //         url:'http://127.0.0.1/api/mylove',
+        //         method:'post',
+        //         data:{
+        //             content,
+        //             privacy
+        //         }
+        //     }).then(result=>{
+        //         console.log(result)
+        //         console.log(result.data.message)
+        //         alert(result.data.message)
+        //     }).catch(error=>{
+        //         console.log(error)
+        //         console.log(error.response.data.message)
+        //         alert(error.response.data.message)
+        //     })
+        //     modal.hide()
+        // })
+        const my_name = document.querySelector('.my-name')
+        const out = document.querySelector('.out')
+    // 2. 最好做个渲染函数 因为退出登录需要重新渲染
+        function render() {
+      // 2.1 读取本地存储的用户名
+            const uname = localStorage.getItem('love-uname')
+      // console.log(uname)
+            if (uname) {
+                my_name.innerHTML = `<a href="javascript:;">${uname
+                    }</a>
+                `
+                out.innerHTML = '<a href="javascript:;">退出登录</a>'
+            } else {
+                my_name.innerHTML = '<a href="./login.html" class="my-name">请先登录</a>'
+                out.innerHTML = '<a href="./register.html" class="out">免费注册</a>'
+            }
+        }
+        render()  // 调用函数
+
+    // 2. 点击退出登录模块
+        out.addEventListener('click', function () {
+      // 删除本地存储的数据
+            localStorage.removeItem('love-uname')
+      // 重新渲染
+            render()
+        })
+
+        axios({
+            url:'http://47.96.100.92:8080/api/mylove',
+            params:{
+                name
+            }
+        }).then(result=>{
+            const userObj=result.data.data
+            Object.keys(userObj).forEach(key=>{
+                if(key==='gender'){
+                    const gRadiolist=document.querySelectorAll('.gender')
+                    const gNum=userObj[key]
+                    gRadiolist[gNum].checked=true
+                }else{
+                    document.querySelector('.${key}').value=userObj[key]
+                }
+            })
+            console.log(result)
+            console.log(result.data.message)
+            console.loh(result.data.list.join('<br><br>'))
+            document.querySelector('.my-p').innerHTML=result.data.list.join('<br><br>')
+        }).catch(error=>{
+            console.log(error)
+            console.log(error.response.data.message)
+        })
+    </script>
+</body>
