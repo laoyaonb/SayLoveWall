@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Say your love!!(register)</title>
+    <link rel="stylesheet" href="register.css">
+    <script type="text/javascript" src="axios.min.js"></script>
+</head>
+<body>
+    <div class="a">
+            <form action="">
+            <h1>注册信息</h1>
+            <br><br>
+            <label id="phonenum">手机号：</label><input type="text" class="phonenum" placeholder="请输入电话号码">
+            <br><br>
+            <label>昵称：</label><input type="text" class="username" placeholder="请输入昵称">
+            <br><br>
+            <label>密码：</label><input type="password" class="password" placeholder="请输入密码">
+            <br><br>
+            <label>请确认密码：</label><input type="password" class="confirm_password" placeholder="请输入密码">
+            <br><br>
+            <label>性别：</label>
+            <input type="radio" name="gender" class="gender" value="2" checked>男
+            <input type="radio" name="gender" class="gender" value="1">女
+            <br><br>
+            <input type="text" placeholder="请输入短信验证码"><button id="count">获取验证码</button>
+            <br>
+            <input type="checkbox" name="agree"><label>已阅读并同意以下协议</label>
+            <ul>
+                <li><a href="#">《用户服务协议》</a></li>
+            </ul>
+            <button><a href="#" class="g">确认注册</a></button>
+            </form>
+    </div>
+<script>src="https://unpkg.com/axios/dist/axios.min.js"</script>
+<script type="text/javascript" src="form-serialize.js"></script>
+<script>
+    const _count=document.getElementById("count");
+    const time=30;
+    _count.addEventListener('click',function(){
+        _count.disabled=true;
+        const timer=setInterval(function(){
+            if(time==0){
+                clearInterval(timer);
+                _count.disabled=false;
+                _count.innerHTML='获取验证码';
+            }
+            else{
+                _count.innerHTML=`${time}秒后重新获取`;
+                time--;
+            }
+        },1000);
+    });
+    document.querySelector('.g').addEventListener('click',
+    ()=>{
+        const username=document.querySelector('.username').value
+        const password=document.querySelector('.password').value
+        const phonenum=document.querySelector('.phonenum').value
+        const confirm_password=document.querySelector('.confirm_password').value
+        const gender=document.querySelectorAll('.gender').value
+        const agree=document.querySelector('[name=agree]')
+        if(username.length<3){
+            console.log('用户名必须大于等于3位')
+            alert("用户名必须大于等于3位")
+            return
+        }
+        if(password.length<6){
+            console.log('密码必须大于等于6位')
+            alert("密码必须大于等于6位")
+            return
+        }
+        if(phonenum.length!==11){
+            console.log('电话号码必须为十一位')
+            alert("电话号码必须为十一位")
+            return
+        }
+        if(confirm_password!=password){
+            alert('确认密码请与输入密码保持一致')
+            return
+        }
+        if (!agree.checked) {
+            alert('请勾选同意协议')
+            return
+        } 
+        axios({
+            url:'http://47.96.100.92:8080/api/register',
+            method:'post',
+            data:{
+                username:username,
+                password:password,
+                phonenum:phonenum,
+                gender
+            }
+        }).then(result=>{
+            console.log(result)
+            // console.log(result.data.message)
+            // localStorage.setItem('love-uname', username.value)
+            alert("注册成功")
+            window.location.replace("")//跳转到information页面
+
+        }).catch(Error=>{
+            console.log(Error)
+            // console.log(error.response.data.message)
+            alert("注册失败")
+        })
+    })
+/*const phone=document.querySelector('[id=phonenum]');
+phone.addEventListener('change',checkphone)
+function checkphone()
+{
+    
+}*/
+</script>
+
+</body>
+</html>
